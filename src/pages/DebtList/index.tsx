@@ -19,8 +19,7 @@ const App: React.FC = () => {
 
   return (
     <>
-      <div className="App">Hello World!</div>
-      <button type="button" >
+      <button className="btn btn-primary" type="button" >
         Debts
       </button>
     </>
