@@ -1,29 +1,43 @@
-import React, { useEffect } from 'react'
-import { useDispatch } from 'react-redux'
-import { useTypedSelector } from '../../store'
+import React, { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { useTypedSelector } from "../../store";
 
 // Actions
-import { getDebts, getDebt } from '../../store/actions/debt.actions'
+import { getDebts, getDebt } from "../../store/actions/debt.actions";
 
 const App: React.FC = () => {
-  const dispatch = useDispatch()
-  const debt = useTypedSelector(state => state.debtReducer.debt)
+  const dispatch = useDispatch();
+  const debt = useTypedSelector((state) => state.debtReducer.debt);
 
   useEffect(() => {
-    dispatch(getDebts())
-  }, [dispatch])
+    dispatch(getDebts());
+  }, [dispatch]);
 
   useEffect(() => {
-    dispatch(getDebt('5f25ce3eb6cedf2cf4779b1a'))
-  }, [dispatch])
+    dispatch(getDebt("5f25ce3eb6cedf2cf4779b1a"));
+  }, [dispatch]);
 
   return (
     <>
-      <button className="btn btn-primary" type="button" >
-        Debts
-      </button>
-    </>
-  )
-}
+      <div className="d-flex">
+        <form className="mx-auto">
+          <div className="form-group">
+            <label htmlFor="reason">Razão</label>
+            <input className="form-control" id="reason" type="text" />
+          </div>
 
-export default App
+          <div className="form-group">
+            <label htmlFor="value">Preço</label>
+            <input className="form-control" id="value" type="text" />
+          </div>
+
+          <button className="btn btn-primary" type="button">
+            Debts
+          </button>
+        </form>
+      </div>
+    </>
+  );
+};
+
+export default App;

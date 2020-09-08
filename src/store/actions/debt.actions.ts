@@ -8,9 +8,14 @@ interface responseGetDebts {
   debts: DebtModel[]
 }
 
-interface responseGetDebt {
+interface responseSingleDebt {
   sucess: boolean
   debt: DebtModel
+}
+
+interface responseDeleteDebt {
+  sucess: boolean
+  debt: {}
 }
 
 export const getDebts = () => async (dispatch: (arg0: DebtActionsTypes) => DebtActionsTypes) => {
@@ -23,10 +28,37 @@ export const getDebts = () => async (dispatch: (arg0: DebtActionsTypes) => DebtA
 }
 
 export const getDebt = (debtId: string) => async (dispatch: (arg0: DebtActionsTypes) => DebtActionsTypes) => {
-  const res: AxiosResponse<responseGetDebt> = await debtApi.get(`/${debtId}`)
+  const res: AxiosResponse<responseSingleDebt> = await debtApi.get(`/${debtId}`)
 
   return dispatch({
     type: DebtTypes.GET_DEBT,
     payload: res.data.debt
+  })
+}
+
+export const createDebt = (newDebt: DebtModel) => async (dispatch: (arg0: DebtActionsTypes) => DebtActionsTypes) => {
+  const res: AxiosResponse<responseSingleDebt> = await debtApi.post('/', newDebt)
+
+  return dispatch({
+    type: DebtTypes.CREATE_DEBT,
+    payload: res.data.debt
+  })
+}
+
+export const updateDebt = (debtId: string, updateDebt: DebtModel) => async (dispatch: (arg0: DebtActionsTypes) => DebtActionsTypes) => {
+  const res: AxiosResponse<responseSingleDebt> = await debtApi.put(`/${debtId}`, updateDebt)
+
+  return dispatch({
+    type: DebtTypes.UPDATE_DEBT,
+    payload: res.data.debt
+  })
+}
+
+export const deleteDebt = (debtId: string) => async (dispatch: (arg0: DebtActionsTypes) => DebtActionsTypes) => {
+  const res: AxiosResponse<responseDeleteDebt> = await debtApi.delete(`/${debtId}`)
+
+  return dispatch({
+    type: DebtTypes.DELETE_DEBT,
+    payload: debtId
   })
 }
