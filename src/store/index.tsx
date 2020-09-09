@@ -2,6 +2,7 @@ import { createStore, Store, compose, applyMiddleware } from 'redux'
 import { DebtState } from './types/debt.types'
 import { BankerState } from './types/banker.types'
 import { ClientState } from './types/client.types'
+import { UserState } from './types/user.types'
 import { rootReducer } from './rootReducer'
 import { TypedUseSelectorHook, useSelector, useDispatch } from 'react-redux'
 import thunk from 'redux-thunk'
@@ -9,7 +10,8 @@ import thunk from 'redux-thunk'
 export interface ApplicationState {
   debtReducer: DebtState,
   bankerReducer: BankerState,
-  clientReducer: ClientState
+  clientReducer: ClientState,
+  userReducer: UserState,
 }
 
 // Initial State

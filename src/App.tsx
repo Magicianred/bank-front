@@ -1,15 +1,15 @@
-import React from 'react'
-import { Provider } from 'react-redux'
-import { store } from './store'
+import React from "react";
+import { Provider } from "react-redux";
+import { store } from "./store";
 
-import DebtList from './pages/DebtList'
+import { Login } from "./pages/Login";
 
 const App: React.FC = () => {
   return (
     <Provider store={store}>
-      <DebtList />
+      <Login />
     </Provider>
-  )
-}
+  );
+};
 
-export { App }
+export { App };
