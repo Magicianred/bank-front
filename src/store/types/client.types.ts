@@ -1,8 +1,12 @@
-import { UserModel } from "./user.types";
-import { DebtModel } from "./debt.types";
+import { debtTypes, userTypes } from './'
+
+// Data Types
+export interface Model extends userTypes.Model {
+  debts?: debtTypes.Model[]
+}
 
 // Action Types
-export enum ClientTypes {
+export enum Types {
   GET_CLIENT = 'GET_CLIENT',
   GET_CLIENTS = 'GET_CLIENTS',
   CREATE_CLIENT = 'CREATE_CLIENT',
@@ -10,40 +14,46 @@ export enum ClientTypes {
   DELETE_CLIENT = 'DELETE_CLIENT',
 }
 
-interface GetClient {
-  type: typeof ClientTypes.GET_CLIENT
-  payload: ClientModel
+interface Get {
+  type: typeof Types.GET_CLIENT
+  payload: Model
 }
 
-interface GetClients {
-  type: typeof ClientTypes.GET_CLIENTS
-  payload: ClientModel[]
+interface Gets {
+  type: typeof Types.GET_CLIENTS
+  payload: Model[]
 }
 
-interface CreateClient {
-  type: typeof ClientTypes.CREATE_CLIENT,
-  payload: ClientModel
+interface Create {
+  type: typeof Types.CREATE_CLIENT,
+  payload: Model
 }
 
-interface UpdateClient {
-  type: typeof ClientTypes.UPDATE_CLIENT,
-  payload: ClientModel
+interface Update {
+  type: typeof Types.UPDATE_CLIENT,
+  payload: Model
 }
 
-interface DeleteClient {
-  type: typeof ClientTypes.DELETE_CLIENT,
+interface Delete {
+  type: typeof Types.DELETE_CLIENT,
   payload: {}
 }
 
-export type ClientActionsTypes = GetClient | GetClients | CreateClient | UpdateClient | DeleteClient
-
-// Data Types
-export interface ClientModel extends UserModel {
-  debts?: DebtModel[]
+export interface ResponseGetAll {
+  sucess: boolean,
+  count: Number,
+  clients: Model[]
 }
 
+export interface ResponseSingle {
+  sucess: boolean
+  client: Model
+}
+
+export type ActionsTypes = Get | Gets | Create | Update | Delete
+
 // State Types
-export interface ClientState {
-  readonly client: ClientModel
-  readonly clients: ClientModel[]
+export interface State {
+  readonly client: Model
+  readonly clients: Model[]
 }

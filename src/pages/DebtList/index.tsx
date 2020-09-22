@@ -1,21 +1,21 @@
-import React, { useEffect } from "react";
-import { useDispatch } from "react-redux";
-import { useTypedSelector } from "../../store";
+import React, { useEffect } from 'react'
+import { useDispatch } from 'react-redux'
+import { useTypedSelector } from '../../store'
 
 // Actions
-import { getDebts, getDebt } from "../../store/actions/debt.actions";
+import { debtActions } from '../../store/actions'
 
 const App: React.FC = () => {
-  const dispatch = useDispatch();
-  const debt = useTypedSelector((state) => state.debtReducer.debt);
+  const dispatch = useDispatch()
+  const debt = useTypedSelector((state) => state.debtReducer.debt)
 
   useEffect(() => {
-    dispatch(getDebts());
-  }, [dispatch]);
+    dispatch(debtActions.getDebts())
+  }, [dispatch])
 
   useEffect(() => {
-    dispatch(getDebt("5f25ce3eb6cedf2cf4779b1a"));
-  }, [dispatch]);
+    dispatch(debtActions.getDebt('5f25ce3eb6cedf2cf4779b1a'))
+  }, [dispatch])
 
   return (
     <>
@@ -37,7 +37,7 @@ const App: React.FC = () => {
         </form>
       </div>
     </>
-  );
-};
+  )
+}
 
-export default App;
+export default App

@@ -1,46 +1,32 @@
-import { UserTypes, UserActionsTypes, UserModel } from '../types/user.types'
-import { userApi } from '../../services/api'
 import { AxiosResponse } from 'axios'
+import { userApi } from '../../services/api'
+import { userTypes } from '../types'
 
-interface responseGetUsers {
-  sucess: boolean,
-  count: Number,
-  users: UserModel[]
-}
-
-interface responseSingleUser {
-  sucess: boolean
-  user: UserModel
-}
-
-interface responseDeleteUser {
-  sucess: boolean
-  user: {}
-}
-
-export const getUsers = () => async (dispatch: (arg0: UserActionsTypes) => UserActionsTypes) => {
-  const res: AxiosResponse<responseGetUsers> = await userApi.get('/')
+const getUsers = () => async (dispatch: (arg0: userTypes.ActionsTypes) => userTypes.ActionsTypes) => {
+  const res: AxiosResponse<userTypes.ResponseGetAll> = await userApi.get('/')
 
   return dispatch({
-    type: UserTypes.GET_USERS,
+    type: userTypes.Types.GET_USERS,
     payload: res.data.users
   })
 }
 
-export const getUser = (userId: string) => async (dispatch: (arg0: UserActionsTypes) => UserActionsTypes) => {
-  const res: AxiosResponse<responseSingleUser> = await userApi.get(`/${userId}`)
+const getUser = (userId: string) => async (dispatch: (arg0: userTypes.ActionsTypes) => userTypes.ActionsTypes) => {
+  const res: AxiosResponse<userTypes.ResponseSingle> = await userApi.get(`/${userId}`)
 
   return dispatch({
-    type: UserTypes.GET_USER,
+    type: userTypes.Types.GET_USER,
     payload: res.data.user
   })
 }
 
-export const deleteUser = (userId: string) => async (dispatch: (arg0: UserActionsTypes) => UserActionsTypes) => {
-  const res: AxiosResponse<responseDeleteUser> = await userApi.delete(`/${userId}`)
+const deleteUser = (userId: string) => async (dispatch: (arg0: userTypes.ActionsTypes) => userTypes.ActionsTypes) => {
+  await userApi.delete(`/${userId}`)
 
   return dispatch({
-    type: UserTypes.DELETE_USER,
+    type: userTypes.Types.DELETE_USER,
     payload: userId
   })
 }
+
+export { getUser, getUsers, deleteUser }

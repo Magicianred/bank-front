@@ -1,64 +1,50 @@
-import { ClientTypes, ClientActionsTypes, ClientModel } from '../types/client.types'
-import { clientApi } from '../../services/api'
 import { AxiosResponse } from 'axios'
+import { clientApi } from '../../services/api'
+import { clientTypes } from '../types'
 
-interface responseGetClients {
-  sucess: boolean,
-  count: Number,
-  clients: ClientModel[]
-}
-
-interface responseSingleClient {
-  sucess: boolean
-  client: ClientModel
-}
-
-interface responseDeleteClient {
-  sucess: boolean
-  client: {}
-}
-
-export const getClients = () => async (dispatch: (arg0: ClientActionsTypes) => ClientActionsTypes) => {
-  const res: AxiosResponse<responseGetClients> = await clientApi.get('/')
+const getClients = () => async (dispatch: (arg0: clientTypes.ActionsTypes) => clientTypes.ActionsTypes) => {
+  const res: AxiosResponse<clientTypes.ResponseGetAll> = await clientApi.get('/')
 
   return dispatch({
-    type: ClientTypes.GET_CLIENTS,
+    type: clientTypes.Types.GET_CLIENTS,
     payload: res.data.clients
   })
 }
 
-export const getClient = (clientId: string) => async (dispatch: (arg0: ClientActionsTypes) => ClientActionsTypes) => {
-  const res: AxiosResponse<responseSingleClient> = await clientApi.get(`/${clientId}`)
+const getClient = (clientId: string) => async (dispatch: (arg0: clientTypes.ActionsTypes) => clientTypes.ActionsTypes) => {
+  const res: AxiosResponse<clientTypes.ResponseSingle> = await clientApi.get(`/${clientId}`)
 
   return dispatch({
-    type: ClientTypes.GET_CLIENT,
+    type: clientTypes.Types.GET_CLIENT,
     payload: res.data.client
   })
 }
 
-export const createClient = (newClient: ClientModel) => async (dispatch: (arg0: ClientActionsTypes) => ClientActionsTypes) => {
-  const res: AxiosResponse<responseSingleClient> = await clientApi.post('/', newClient)
+const createClient = (newClient: clientTypes.Model) => async (dispatch: (arg0: clientTypes.ActionsTypes) => clientTypes.ActionsTypes) => {
+  const res: AxiosResponse<clientTypes.ResponseSingle> = await clientApi.post('/', newClient)
 
   return dispatch({
-    type: ClientTypes.CREATE_CLIENT,
+    type: clientTypes.Types.CREATE_CLIENT,
     payload: res.data.client
   })
 }
 
-export const updateClient = (clientId: string, updateClient: ClientModel) => async (dispatch: (arg0: ClientActionsTypes) => ClientActionsTypes) => {
-  const res: AxiosResponse<responseSingleClient> = await clientApi.put(`/${clientId}`, updateClient)
+const updateClient = (clientId: string, updateClient: clientTypes.Model) => async (dispatch: (arg0: clientTypes.ActionsTypes) => clientTypes.ActionsTypes) => {
+  const res: AxiosResponse<clientTypes.ResponseSingle> = await clientApi.put(`/${clientId}`, updateClient)
 
   return dispatch({
-    type: ClientTypes.UPDATE_CLIENT,
+    type: clientTypes.Types.UPDATE_CLIENT,
     payload: res.data.client
   })
 }
 
-export const deleteClient = (clientId: string) => async (dispatch: (arg0: ClientActionsTypes) => ClientActionsTypes) => {
-  const res: AxiosResponse<responseDeleteClient> = await clientApi.delete(`/${clientId}`)
+const deleteClient = (clientId: string) => async (dispatch: (arg0: clientTypes.ActionsTypes) => clientTypes.ActionsTypes) => {
+  await clientApi.delete(`/${clientId}`)
 
   return dispatch({
-    type: ClientTypes.DELETE_CLIENT,
+    type: clientTypes.Types.DELETE_CLIENT,
     payload: clientId
   })
 }
+
+export { getClient, getClients, createClient, updateClient, deleteClient }

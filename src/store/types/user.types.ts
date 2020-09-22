@@ -1,40 +1,5 @@
-// Actions Types
-export enum UserTypes {
-  GET_USER = "GET_USER",
-  GET_USERS = "GET_USERS",
-  DELETE_USER = "DELETE_USER",
-}
-
-interface GetUser {
-  type: typeof UserTypes.GET_USER;
-  payload: UserModel;
-}
-
-interface GetUsers {
-  type: typeof UserTypes.GET_USERS;
-  payload: UserModel[];
-}
-
-interface DeleteUser {
-  type: typeof UserTypes.DELETE_USER;
-  payload: {};
-}
-
-export type UserActionsTypes = GetUser | GetUsers | DeleteUser;
-
 // Data Types
-export interface UserModel {
-  _id?: string;
-  firstName: string;
-  lastName?: string;
-  email: string;
-  password: string;
-  gender: string;
-  birth: string;
-  address: UserAddress;
-}
-
-interface UserAddress {
+interface Address {
   street: string;
   number?: number;
   complement?: string;
@@ -44,8 +9,54 @@ interface UserAddress {
   country: string;
 }
 
+export interface Model {
+  _id?: string;
+  firstName: string;
+  lastName?: string;
+  email: string;
+  password: string;
+  gender: string;
+  birth: string;
+  address: Address;
+}
+
+// Actions Types
+export enum Types {
+  GET_USER = 'GET_USER',
+  GET_USERS = 'GET_USERS',
+  DELETE_USER = 'DELETE_USER',
+}
+
+interface Get {
+  type: typeof Types.GET_USER;
+  payload: Model;
+}
+
+interface Gets {
+  type: typeof Types.GET_USERS;
+  payload: Model[];
+}
+
+interface Delete {
+  type: typeof Types.DELETE_USER;
+  payload: {};
+}
+
+export interface ResponseSingle {
+  sucess: boolean
+  user: Model
+}
+
+export interface ResponseGetAll {
+  sucess: boolean,
+  count: Number,
+  users: Model[]
+}
+
+export type ActionsTypes = Get | Gets | Delete;
+
 // State Types
-export interface UserState {
-  readonly user: UserModel;
-  readonly users: UserModel[];
+export interface State {
+  readonly user: Model;
+  readonly users: Model[];
 }

@@ -1,64 +1,50 @@
-import { BankerTypes, BankerActionsTypes, BankerModel } from '../types/banker.types'
-import { bankerApi } from '../../services/api'
 import { AxiosResponse } from 'axios'
+import { bankerApi } from '../../services/api'
+import { bankerTypes } from '../types'
 
-interface responseGetBankers {
-  sucess: boolean,
-  count: Number,
-  bankers: BankerModel[]
-}
-
-interface responseSingleBanker {
-  sucess: boolean
-  banker: BankerModel
-}
-
-interface responseDeleteBanker {
-  sucess: boolean
-  banker: {}
-}
-
-export const getBankers = () => async (dispatch: (arg0: BankerActionsTypes) => BankerActionsTypes) => {
-  const res: AxiosResponse<responseGetBankers> = await bankerApi.get('/')
+const getBankers = () => async (dispatch: (arg0: bankerTypes.ActionsTypes) => bankerTypes.ActionsTypes) => {
+  const res: AxiosResponse<bankerTypes.ResponseGetAll> = await bankerApi.get('/')
 
   return dispatch({
-    type: BankerTypes.GET_BANKERS,
+    type: bankerTypes.Types.GET_BANKERS,
     payload: res.data.bankers
   })
 }
 
-export const getBanker = (bankerId: string) => async (dispatch: (arg0: BankerActionsTypes) => BankerActionsTypes) => {
-  const res: AxiosResponse<responseSingleBanker> = await bankerApi.get(`/${bankerId}`)
+const getBanker = (bankerId: string) => async (dispatch: (arg0: bankerTypes.ActionsTypes) => bankerTypes.ActionsTypes) => {
+  const res: AxiosResponse<bankerTypes.ResponseSingle> = await bankerApi.get(`/${bankerId}`)
 
   return dispatch({
-    type: BankerTypes.GET_BANKER,
+    type: bankerTypes.Types.GET_BANKER,
     payload: res.data.banker
   })
 }
 
-export const createBanker = (newBanker: BankerModel) => async (dispatch: (arg0: BankerActionsTypes) => BankerActionsTypes) => {
-  const res: AxiosResponse<responseSingleBanker> = await bankerApi.post('/', newBanker)
+const createBanker = (newBanker: bankerTypes.Model) => async (dispatch: (arg0: bankerTypes.ActionsTypes) => bankerTypes.ActionsTypes) => {
+  const res: AxiosResponse<bankerTypes.ResponseSingle> = await bankerApi.post('/', newBanker)
 
   return dispatch({
-    type: BankerTypes.CREATE_BANKER,
+    type: bankerTypes.Types.CREATE_BANKER,
     payload: res.data.banker
   })
 }
 
-export const updateBanker = (bankerId: string, updateBanker: BankerModel) => async (dispatch: (arg0: BankerActionsTypes) => BankerActionsTypes) => {
-  const res: AxiosResponse<responseSingleBanker> = await bankerApi.put(`/${bankerId}`, updateBanker)
+const updateBanker = (bankerId: string, updateBanker: bankerTypes.Model) => async (dispatch: (arg0: bankerTypes.ActionsTypes) => bankerTypes.ActionsTypes) => {
+  const res: AxiosResponse<bankerTypes.ResponseSingle> = await bankerApi.put(`/${bankerId}`, updateBanker)
 
   return dispatch({
-    type: BankerTypes.UPDATE_BANKER,
+    type: bankerTypes.Types.UPDATE_BANKER,
     payload: res.data.banker
   })
 }
 
-export const deleteBanker = (bankerId: string) => async (dispatch: (arg0: BankerActionsTypes) => BankerActionsTypes) => {
-  const res: AxiosResponse<responseDeleteBanker> = await bankerApi.delete(`/${bankerId}`)
+const deleteBanker = (bankerId: string) => async (dispatch: (arg0: bankerTypes.ActionsTypes) => bankerTypes.ActionsTypes) => {
+  await bankerApi.delete(`/${bankerId}`)
 
   return dispatch({
-    type: BankerTypes.DELETE_BANKER,
+    type: bankerTypes.Types.DELETE_BANKER,
     payload: bankerId
   })
 }
+
+export { getBanker, getBankers, createBanker, updateBanker, deleteBanker }

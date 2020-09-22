@@ -1,18 +1,32 @@
-import { createStore, Store, compose, applyMiddleware } from 'redux'
-import { DebtState } from './types/debt.types'
-import { BankerState } from './types/banker.types'
-import { ClientState } from './types/client.types'
-import { UserState } from './types/user.types'
-import { rootReducer } from './rootReducer'
+import { createStore, Store, compose, applyMiddleware, combineReducers } from 'redux'
 import { TypedUseSelectorHook, useSelector, useDispatch } from 'react-redux'
 import thunk from 'redux-thunk'
 
+import { authTypes, bankerTypes, clientTypes, debtTypes, userTypes } from './types'
+import { authReducer, debtReducer, bankerReducer, clientReducer, userReducer } from './reducers'
+
 export interface ApplicationState {
-  debtReducer: DebtState,
-  bankerReducer: BankerState,
-  clientReducer: ClientState,
-  userReducer: UserState,
+  authReducer: authTypes.State
+  debtReducer: debtTypes.State,
+  clientReducer: clientTypes.State,
+  bankerReducer: bankerTypes.State,
+  userReducer: userTypes.State,
 }
+
+const rootReducer = combineReducers({
+  authReducer,
+  debtReducer,
+  bankerReducer,
+  clientReducer,
+  userReducer
+})
+
+// TypedSelector
+const useTypedSelector: TypedUseSelectorHook<ApplicationState> = useSelector
+
+// TypedDispatch
+type AppDispatch = typeof store.dispatch
+const useAppDispatch = () => useDispatch<AppDispatch>()
 
 // Initial State
 const initialState = {}
@@ -21,12 +35,5 @@ const store: Store<ApplicationState> = createStore(rootReducer, initialState, co
   applyMiddleware(thunk),
   (window as any).__REDUX_DEVTOOLS_EXTENSION__ && (window as any).__REDUX_DEVTOOLS_EXTENSION__()
 ))
-
-// TypedSelector
-const useTypedSelector: TypedUseSelectorHook<ApplicationState> = useSelector
-
-// TypedDispatch
-type AppDispatch = typeof store.dispatch
-const useAppDispatch = () => useDispatch<AppDispatch>()
 
 export { store, useTypedSelector, useAppDispatch }

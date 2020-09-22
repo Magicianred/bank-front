@@ -1,11 +1,13 @@
 import axios from 'axios'
 
-const debtApi = axios.create({ baseURL: 'http://localhost:3333/api/v1/debts' })
+const debtApi = axios.create({ baseURL: `${process.env.BASE_URL}/debts` })
 
-const bankerApi = axios.create({ baseURL: 'http://localhost:3333/api/v1/bankers'})
+const bankerApi = axios.create({ baseURL: `${process.env.BASE_URL}/bankers` })
 
-const clientApi = axios.create({ baseURL: 'http://localhost:3333/api/v1/clients'})
+const clientApi = axios.create({ baseURL: `${process.env.BASE_URL}/clients` })
 
-const userApi = axios.create({ baseURL: 'http://localhost:3333/api/v1/users'})
+const userApi = axios.create({ baseURL: `${process.env.BASE_URL}/users` })
 
-export { debtApi, bankerApi, clientApi, userApi }
+const authApi = axios.create({ baseURL: `${process.env.BASE_URL}/users` })
+
+export { debtApi, bankerApi, clientApi, userApi, authApi }

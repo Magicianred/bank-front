@@ -1,6 +1,6 @@
-import React from "react";
-import * as Actions from "../../store/actions";
-import { useAppDispatch, useTypedSelector } from "../../store/index";
+import React from 'react'
+import * as Actions from '../../store/actions'
+import { useAppDispatch, useTypedSelector } from '../../store/index'
 
 const Login: React.FC = () => {
   return (
@@ -36,7 +36,7 @@ const Login: React.FC = () => {
         </form>
       </div>
     </main>
-  );
-};
+  )
+}
 
-export { Login };
+export { Login }

@@ -1,7 +1,12 @@
-import { UserModel } from "./user.types";
+import { userTypes } from './'
+
+// Data Types
+export interface Model extends userTypes.Model {
+  bank: string;
+}
 
 // Action Types
-export enum BankerTypes {
+export enum Types {
   GET_BANKER = 'GET_BANKER',
   GET_BANKERS = 'GET_BANKERS',
   CREATE_BANKER = 'CREATE_BANKER',
@@ -9,40 +14,46 @@ export enum BankerTypes {
   DELETE_BANKER = 'DELETE_BANKER',
 }
 
-interface GetBanker {
-  type: typeof BankerTypes.GET_BANKER
-  payload: BankerModel
+interface Get {
+  type: typeof Types.GET_BANKER;
+  payload: Model;
 }
 
-interface GetBankers {
-  type: typeof BankerTypes.GET_BANKERS
-  payload: BankerModel[]
+interface Gets {
+  type: typeof Types.GET_BANKERS;
+  payload: Model[];
 }
 
-interface CreateBanker {
-  type: typeof BankerTypes.CREATE_BANKER,
-  payload: BankerModel
+interface Create {
+  type: typeof Types.CREATE_BANKER;
+  payload: Model;
 }
 
-interface UpdateBanker {
-  type: typeof BankerTypes.UPDATE_BANKER,
-  payload: BankerModel
+interface Update {
+  type: typeof Types.UPDATE_BANKER;
+  payload: Model;
 }
 
-interface DeleteBanker {
-  type: typeof BankerTypes.DELETE_BANKER,
-  payload: {}
+interface Delete {
+  type: typeof Types.DELETE_BANKER;
+  payload: {};
 }
 
-export type BankerActionsTypes = GetBanker | GetBankers | CreateBanker | UpdateBanker | DeleteBanker
-
-// Data Types
-export interface BankerModel extends UserModel {
-  bank: string
+export interface ResponseGetAll {
+  sucess: boolean;
+  count: Number;
+  bankers: Model[];
 }
+
+export interface ResponseSingle {
+  sucess: boolean;
+  banker: Model;
+}
+
+export type ActionsTypes = Get | Gets | Create | Update | Delete;
 
 // State Types
-export interface BankerState {
-  readonly banker: BankerModel
-  readonly bankers: BankerModel[]
+export interface State {
+  readonly banker: Model;
+  readonly bankers: Model[];
 }
