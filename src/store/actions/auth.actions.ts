@@ -3,8 +3,8 @@ import { authApi } from '../../services/api'
 import { authTypes } from '../types'
 import { setAuthorizationToken } from 'src/utils/setAuthorizationToken'
 
-const login = () => async (dispatch: (arg0: authTypes.ActionTypes) => authTypes.ActionTypes) => {
-  const res: AxiosResponse<authTypes.ResponseLogin> = await authApi.post('/login')
+const login = (email: string, password: string) => async (dispatch: (arg0: authTypes.ActionTypes) => authTypes.ActionTypes) => {
+  const res: AxiosResponse<authTypes.ResponseLogin> = await authApi.post('/login', { email, password })
 
   const { token } = res.data
 

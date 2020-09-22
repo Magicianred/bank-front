@@ -5,7 +5,7 @@ import { useTypedSelector } from '../../store'
 // Actions
 import { debtActions } from '../../store/actions'
 
-const App: React.FC = () => {
+const DebtList: React.FC = () => {
   const dispatch = useDispatch()
   const debt = useTypedSelector((state) => state.debtReducer.debt)
 
@@ -40,4 +40,4 @@ const App: React.FC = () => {
   )
 }
 
-export default App
+export { DebtList }
