@@ -1,7 +1,28 @@
-import React from 'react'
+import React, { useEffect } from "react";
+import { useDispatch } from 'react-redux'
+import { Link } from "react-router-dom";
+import { useCountRenders } from "src/hooks";
+import { authActions } from '../../store/actions'
 
-const Dashboard: React.FC = () => {
-  return <h1>Loading...</h1>
-}
+const Dashboard: React.FC = ({ children }) => {
+  useCountRenders("Dashboard")
+  const dispatch = useDispatch()
 
-export { Dashboard }
+  useEffect(() => {
+    dispatch(authActions.getMe())
+  }, [dispatch])
+
+  return (
+    <>
+      <Link className="btn btn-primary" to="/home">
+        home
+      </Link>
+      <Link className="btn btn-warning" to="/debtlist">
+        debtlist
+      </Link>
+      {children}
+    </>
+  );
+};
+
+export { Dashboard };

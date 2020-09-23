@@ -29,11 +29,11 @@ const authReducer: Reducer<authTypes.State, authTypes.ActionTypes> = (
 ): authTypes.State => {
   switch (action.type) {
     case authTypes.Types.LOGIN:
-      return { ...state, auth: action.payload }
+      return { ...state, auth: true }
     case authTypes.Types.LOGOUT:
-      return { ...state, auth: action.payload }
+      return { ...state, auth: false }
     case authTypes.Types.GET_ME:
-      return { ...state, user: action.payload }
+      return { ...state, auth: state.auth, user: action.payload }
     default:
       return state
   }

@@ -1,38 +1,25 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { useDispatch } from 'react-redux'
-import { useTypedSelector } from '../../store'
-
-// Actions
-import { debtActions } from '../../store/actions'
+import { useHistory } from 'react-router-dom'
+import { useCountRenders } from 'src/hooks/useCountRenders'
+import { authActions } from '../../store/actions'
 
 const DebtList: React.FC = () => {
+  useCountRenders('DebtList')
   const dispatch = useDispatch()
-  const debt = useTypedSelector((state) => state.debtReducer.debt)
+  const history = useHistory()
 
-  useEffect(() => {
-    dispatch(debtActions.getDebts())
-  }, [dispatch])
-
-  useEffect(() => {
-    dispatch(debtActions.getDebt('5f25ce3eb6cedf2cf4779b1a'))
-  }, [dispatch])
+  const handleLogout = () => {
+    dispatch(authActions.logout())
+    history.push('/')
+  }
 
   return (
     <>
       <div className="d-flex">
         <form className="mx-auto">
-          <div className="form-group">
-            <label htmlFor="reason">Razão</label>
-            <input className="form-control" id="reason" type="text" />
-          </div>
-
-          <div className="form-group">
-            <label htmlFor="value">Preço</label>
-            <input className="form-control" id="value" type="text" />
-          </div>
-
-          <button className="btn btn-primary" type="button">
-            Debts
+          <button className="btn btn-danger" type="button" onClick={() => handleLogout()}>
+            logout
           </button>
         </form>
       </div>

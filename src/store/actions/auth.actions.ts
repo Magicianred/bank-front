@@ -8,26 +8,26 @@ const login = (email: string, password: string) => async (dispatch: (arg0: authT
 
   const { token } = res.data
 
-  setAuthorizationToken(token)
-
   localStorage.setItem('token', JSON.stringify(token))
+
+  setAuthorizationToken(token)
 
   return dispatch({
     type: authTypes.Types.LOGIN,
-    payload: res.data.sucess
+    payload: true
   })
 }
 
 const logout = () => async (dispatch: (arg0: authTypes.ActionTypes) => authTypes.ActionTypes) => {
   const res: AxiosResponse<authTypes.ResponseLogin> = await authApi.post('/logout')
 
-  setAuthorizationToken(false)
-
   localStorage.removeItem('token')
+
+  setAuthorizationToken(false)
 
   return dispatch({
     type: authTypes.Types.LOGOUT,
-    payload: res.data.sucess
+    payload: false
   })
 }
 

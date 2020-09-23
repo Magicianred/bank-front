@@ -1,8 +1,8 @@
 import { useRef } from 'react'
 
 const useCountRenders = (componentName: string) => {
-  const render = useRef(0)
-  console.log(`${componentName} renders: ${render.current++} times`)
+  const renders = useRef(0)
+  console.log(`${componentName} component renders: ` + renders.current++ + ' times')
 }
 
 export { useCountRenders }

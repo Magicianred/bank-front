@@ -9,8 +9,8 @@ const Login: React.FC = () => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
 
-  const handleLogin = () => {
-    dispatch(authActions.login(email, password))
+  const handleLogin = async () => {
+    await dispatch(authActions.login(email, password))
     history.push('/debtlist')
   }
 
