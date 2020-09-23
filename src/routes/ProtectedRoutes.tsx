@@ -1,7 +1,8 @@
 import React from "react";
 import { Route, Redirect } from "react-router-dom";
 
-import { Dashboard, DebtList, Home } from "../pages";
+import { Dashboard } from '../components'
+import { DebtList, Home } from "../pages";
 
 // import { Container } from './styles';
 
