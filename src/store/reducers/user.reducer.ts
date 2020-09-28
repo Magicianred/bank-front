@@ -4,21 +4,8 @@ import { userTypes } from '../types'
 const initialState: userTypes.State = {
   user: {
     _id: '',
-    firstName: '',
-    lastName: '',
+    name: '',
     email: '',
-    password: '',
-    gender: '',
-    birth: '',
-    address: {
-      street: '',
-      city: '',
-      country: '',
-      district: '',
-      state: '',
-      complement: '',
-      number: 0
-    }
   },
   users: []
 }

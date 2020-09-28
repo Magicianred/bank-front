@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { useCountRenders } from "src/hooks";
 import { authActions } from "../../store/actions";
-import { Navbar } from './Navbar'
+import { Navbar } from "./Navbar";
 
 const Dashboard: React.FC = ({ children }) => {
   useCountRenders("Dashboard");

@@ -1,23 +1,9 @@
 // Data Types
-interface Address {
-  street: string;
-  number?: number;
-  complement?: string;
-  district: string;
-  city: string;
-  state: string;
-  country: string;
-}
-
 export interface Model {
   _id?: string;
-  firstName: string;
-  lastName?: string;
+  name: string;
   email: string;
-  password: string;
-  gender: string;
-  birth: string;
-  address: Address;
+  password?: string;
 }
 
 // Actions Types

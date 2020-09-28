@@ -4,21 +4,8 @@ import { clientTypes } from '../types'
 const initialState: clientTypes.State = {
   client: {
     _id: '',
-    firstName: '',
-    lastName: '',
+    name: '',
     email: '',
-    password: '',
-    gender: '',
-    birth: '',
-    address: {
-      street: '',
-      city: '',
-      country: '',
-      district: '',
-      state: '',
-      complement: '',
-      number: 0
-    },
     debts: []
   },
   clients: []

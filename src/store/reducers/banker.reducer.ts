@@ -4,22 +4,9 @@ import { bankerTypes } from '../types'
 const initialState: bankerTypes.State = {
   banker: {
     _id: '',
-    firstName: '',
-    lastName: '',
+    name: '',
     email: '',
-    password: '',
-    gender: '',
-    birth: '',
     bank: '',
-    address: {
-      street: '',
-      city: '',
-      country: '',
-      district: '',
-      state: '',
-      complement: '',
-      number: 0
-    }
   },
   bankers: []
 }
