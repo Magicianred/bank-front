@@ -4,5 +4,14 @@ import { clientReducer } from "./client.reducer";
 import { debtReducer } from "./debt.reducer";
 import { userReducer } from "./user.reducer";
 import { billReducer } from "./bill.reducer";
+import { expenseReducer } from "./expense.reducer";
 
-export { authReducer, billReducer, bankerReducer, clientReducer, debtReducer, userReducer };
+export {
+  authReducer,
+  billReducer,
+  bankerReducer,
+  clientReducer,
+  debtReducer,
+  userReducer,
+  expenseReducer,
+};
