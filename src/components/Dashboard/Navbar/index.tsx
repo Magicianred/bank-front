@@ -2,7 +2,7 @@ import React from "react";
 import { useDispatch } from "react-redux";
 import { useHistory, Link } from "react-router-dom";
 import { authActions } from "../../../store/actions";
-import './style.css'
+import "./style.css";
 
 const Navbar: React.FC = () => {
   const dispatch = useDispatch();
@@ -22,10 +22,24 @@ const Navbar: React.FC = () => {
               Home
             </Link>
           </li>
+          <li>
+            <Link className="nav-link" to="/dividas">
+              Dívidas
+            </Link>
+          </li>
+          <li>
+            <Link className="nav-link" to="/despesas">
+              Despesas
+            </Link>
+          </li>
         </div>
         <div>
           <li>
-            <div id="logout" className="nav-link align-self-end" onClick={() => handleLogout()}>
+            <div
+              id="logout"
+              className="nav-link align-self-end"
+              onClick={() => handleLogout()}
+            >
               logout
             </div>
           </li>

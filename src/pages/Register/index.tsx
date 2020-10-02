@@ -1,6 +1,6 @@
 import React from "react";
 import { useDispatch } from "react-redux";
-import { useHistory } from "react-router-dom";
+import { useHistory, Link } from "react-router-dom";
 import { Formik, Form as FormikForm, Field, ErrorMessage } from "formik";
 import * as yup from "yup";
 import { clientActions } from "../../store/actions";
@@ -89,7 +89,7 @@ const Register: React.FC = () => {
             <button type="submit" className="btn btn-block btn-success">
               Registrar
             </button>
-            <button className="btn btn-block btn-danger">Voltar</button>
+            <Link className="btn btn-block btn-danger" to="/login">Voltar</Link>
           </FormikForm>
         </Formik>
       </div>

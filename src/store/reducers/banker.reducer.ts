@@ -4,6 +4,7 @@ import { bankerTypes } from '../types'
 const initialState: bankerTypes.State = {
   banker: {
     _id: '',
+    userType: '',
     name: '',
     email: '',
     bank: '',

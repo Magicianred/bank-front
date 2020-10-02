@@ -12,6 +12,8 @@ import './assets/scss/main.css'
 // Bootstrap Css
 import 'bootstrap/dist/css/bootstrap.css'
 
+import 'bootstrap/js/dist/modal'
+
 // dotenv
 dotenv.config({ path: './src/config/config.env' })
 

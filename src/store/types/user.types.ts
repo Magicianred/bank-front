@@ -1,6 +1,7 @@
 // Data Types
 export interface Model {
   _id?: string;
+  userType?: string
   name: string;
   email: string;
   password?: string;

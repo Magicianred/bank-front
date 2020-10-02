@@ -1,10 +1,11 @@
 // Data Types
 export interface Model {
   _id?: string
-  reason: string
+  title: string
+  description: string
   value: number
   clientId: string
-  bankerId: string
+  bankerId?: string
   paid?: boolean
 }
 
@@ -12,6 +13,7 @@ export interface Model {
 export enum Types {
   GET_DEBT = 'GET_DEBT',
   GET_DEBTS = 'GET_DEBTS',
+  GET_DEBTS_BY_USER = 'GET_DEBTS_BY_USER',
   CREATE_DEBT = 'CREATE_DEBT',
   UPDATE_DEBT = 'UPDATE_DEBT',
   DELETE_DEBT = 'DELETE_DEBT',
@@ -24,6 +26,11 @@ interface Get {
 
 interface Gets {
   type: typeof Types.GET_DEBTS
+  payload: Model[]
+}
+
+interface GetsByUser {
+  type: typeof Types.GET_DEBTS_BY_USER
   payload: Model[]
 }
 
@@ -53,7 +60,7 @@ export interface ResponseSingle {
   debt: Model
 }
 
-export type ActionsTypes = Get | Gets | Create | Update | Delete
+export type ActionsTypes = Get | Gets | GetsByUser | Create | Update | Delete
 
 // State Types
 export interface State {

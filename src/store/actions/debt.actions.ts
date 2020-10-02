@@ -1,8 +1,8 @@
 import { AxiosResponse } from 'axios'
-import { debtApi } from '../../services/api'
+import { debtApi, userApi } from '../../services/api'
 import { debtTypes } from '../types'
 
-const getDebts = () => async (dispatch: (arg0: debtTypes.ActionsTypes) => debtTypes.ActionsTypes) => {
+const getDebtsAsync = () => async (dispatch: (arg0: debtTypes.ActionsTypes) => debtTypes.ActionsTypes) => {
   const res: AxiosResponse<debtTypes.ResponseGetAll> = await debtApi.get('/')
 
   return dispatch({
@@ -11,7 +11,7 @@ const getDebts = () => async (dispatch: (arg0: debtTypes.ActionsTypes) => debtTy
   })
 }
 
-const getDebt = (debtId: string) => async (dispatch: (arg0: debtTypes.ActionsTypes) => debtTypes.ActionsTypes) => {
+const getDebtAsync = (debtId: string) => async (dispatch: (arg0: debtTypes.ActionsTypes) => debtTypes.ActionsTypes) => {
   const res: AxiosResponse<debtTypes.ResponseSingle> = await debtApi.get(`/${debtId}`)
 
   return dispatch({
@@ -20,7 +20,16 @@ const getDebt = (debtId: string) => async (dispatch: (arg0: debtTypes.ActionsTyp
   })
 }
 
-const createDebt = (newDebt: debtTypes.Model) => async (dispatch: (arg0: debtTypes.ActionsTypes) => debtTypes.ActionsTypes) => {
+const getDebtsByUserIdAsync = (userId: string) => async (dispatch: (arg0: debtTypes.ActionsTypes) => debtTypes.ActionsTypes) => {
+  const res: AxiosResponse<debtTypes.ResponseGetAll> = await userApi.get(`/${userId}/debts`)
+
+  return dispatch({
+    type: debtTypes.Types.GET_DEBTS_BY_USER,
+    payload: res.data.debts
+  })
+}
+
+const createDebtAsync = (newDebt: debtTypes.Model) => async (dispatch: (arg0: debtTypes.ActionsTypes) => debtTypes.ActionsTypes) => {
   const res: AxiosResponse<debtTypes.ResponseSingle> = await debtApi.post('/', newDebt)
 
   return dispatch({
@@ -29,7 +38,7 @@ const createDebt = (newDebt: debtTypes.Model) => async (dispatch: (arg0: debtTyp
   })
 }
 
-const updateDebt = (debtId: string, updateDebt: debtTypes.Model) => async (dispatch: (arg0: debtTypes.ActionsTypes) => debtTypes.ActionsTypes) => {
+const updateDebtAsync = (debtId: string, updateDebt: debtTypes.Model) => async (dispatch: (arg0: debtTypes.ActionsTypes) => debtTypes.ActionsTypes) => {
   const res: AxiosResponse<debtTypes.ResponseSingle> = await debtApi.put(`/${debtId}`, updateDebt)
 
   return dispatch({
@@ -38,7 +47,7 @@ const updateDebt = (debtId: string, updateDebt: debtTypes.Model) => async (dispa
   })
 }
 
-const deleteDebt = (debtId: string) => async (dispatch: (arg0: debtTypes.ActionsTypes) => debtTypes.ActionsTypes) => {
+const deleteDebtAsync = (debtId: string) => async (dispatch: (arg0: debtTypes.ActionsTypes) => debtTypes.ActionsTypes) => {
   await debtApi.delete(`/${debtId}`)
 
   return dispatch({
@@ -47,4 +56,4 @@ const deleteDebt = (debtId: string) => async (dispatch: (arg0: debtTypes.Actions
   })
 }
 
-export { getDebt, getDebts, createDebt, updateDebt, deleteDebt }
+export { getDebtAsync, getDebtsAsync, createDebtAsync, updateDebtAsync, deleteDebtAsync, getDebtsByUserIdAsync }

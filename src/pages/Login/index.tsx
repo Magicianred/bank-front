@@ -18,7 +18,7 @@ const Login: React.FC = () => {
     <main id="main-login" className="container-fluid d-flex">
       <div className="col d-flex align-items-center justify-content-center">
         <form className="w-25">
-          <h2 className="text-center">Bank</h2>
+          <h2 className="text-center">ELCIESS</h2>
 
           <Formik
             initialValues={{

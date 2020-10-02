@@ -4,8 +4,9 @@ import { debtTypes } from '../types'
 const initialState: debtTypes.State = {
   debt: {
     _id: '',
+    title: '',
     value: 0,
-    reason: '',
+    description: '',
     clientId: '',
     bankerId: ''
   },
@@ -20,6 +21,8 @@ const debtReducer: Reducer<debtTypes.State, debtTypes.ActionsTypes> = (
     case debtTypes.Types.GET_DEBT:
       return { ...state, debt: action.payload }
     case debtTypes.Types.GET_DEBTS:
+      return { ...state, debts: action.payload }
+    case debtTypes.Types.GET_DEBTS_BY_USER:
       return { ...state, debts: action.payload }
     case debtTypes.Types.CREATE_DEBT:
       return { ...state, debt: action.payload }

@@ -5,6 +5,7 @@ const initialState: authTypes.State = {
   auth: false,
   user: {
     _id: '',
+    userType: '',
     name: '',
     email: '',
   }

@@ -4,6 +4,7 @@ import { userTypes } from '../types'
 const initialState: userTypes.State = {
   user: {
     _id: '',
+    userType: '',
     name: '',
     email: '',
   },
