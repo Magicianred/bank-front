@@ -10,4 +10,6 @@ const userApi = axios.create({ baseURL: 'http://localhost:3333/api/v1/users' })
 
 const authApi = axios.create({ baseURL: 'http://localhost:3333/api/v1/auth' })
 
-export { debtApi, bankerApi, clientApi, userApi, authApi }
+const billApi = axios.create({ baseURL: 'http://localhost:3333/api/v1/bills' })
+
+export { debtApi, bankerApi, clientApi, userApi, authApi, billApi }

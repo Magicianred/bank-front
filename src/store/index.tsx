@@ -2,8 +2,8 @@ import { createStore, Store, compose, applyMiddleware, combineReducers } from 'r
 import { TypedUseSelectorHook, useSelector } from 'react-redux'
 import thunk from 'redux-thunk'
 
-import { authTypes, bankerTypes, clientTypes, debtTypes, userTypes } from './types'
-import { authReducer, debtReducer, bankerReducer, clientReducer, userReducer } from './reducers'
+import { authTypes, bankerTypes, clientTypes, debtTypes, userTypes, billTypes } from './types'
+import { authReducer, debtReducer, bankerReducer, clientReducer, userReducer, billReducer } from './reducers'
 
 export interface ApplicationState {
   authReducer: authTypes.State
@@ -11,6 +11,7 @@ export interface ApplicationState {
   clientReducer: clientTypes.State,
   bankerReducer: bankerTypes.State,
   userReducer: userTypes.State,
+  billReducer: billTypes.State
 }
 
 const rootReducer = combineReducers({
@@ -18,7 +19,8 @@ const rootReducer = combineReducers({
   debtReducer,
   bankerReducer,
   clientReducer,
-  userReducer
+  userReducer,
+  billReducer
 })
 
 // TypedSelector
