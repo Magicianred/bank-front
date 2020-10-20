@@ -4,7 +4,7 @@ import { Route, Redirect } from "react-router-dom";
 import { authActions } from "src/store/actions";
 
 import { Dashboard } from "../components";
-import { Debt, Debts, Home } from "../pages";
+import { Debt, Debts, Home, Expenses } from "../pages";
 
 const ProtectedRoutes: React.FC = () => {
   const dispatch = useDispatch();
@@ -18,7 +18,7 @@ const ProtectedRoutes: React.FC = () => {
       <Route exact path="/home" component={Home} />
       <Route exact path="/dividas" component={Debts} />
       <Route exact path="/dividas/:id" component={Debt} />
-      <Route exact path="/despesas" component={Debt} />
+      <Route exact path="/despesas" component={Expenses} />
       <Redirect to="/home" />
     </Dashboard>
   );

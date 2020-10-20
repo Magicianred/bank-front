@@ -1,5 +1,6 @@
 import React, { FormEvent, useEffect, useRef } from "react";
 import { useDispatch } from "react-redux";
+import { Link } from "react-router-dom";
 import { useCountRenders } from "src/hooks/useCountRenders";
 import { useTypedSelector } from "src/store";
 import { debtActions } from "src/store/actions";
@@ -47,6 +48,9 @@ const Debts: React.FC = () => {
                   <button className="btn btn-success rounded-circle mr-3">
                     P
                   </button>
+                  <Link to={`/dividas/${debt._id}`} className="btn btn-primary rounded-circle mr-3">
+                    V
+                  </Link>
                   <button
                     className="btn btn-danger rounded-circle mr-3"
                     onClick={(e) => handleDeleteDebt(e, debt._id!)}
@@ -58,6 +62,9 @@ const Debts: React.FC = () => {
             ))}
           </tbody>
         </table>
+        <Link type="button" className="btn btn-primary" to="/dividas/novo">
+          Criar
+        </Link>
       </main>
     </>
   );

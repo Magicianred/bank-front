@@ -1,13 +1,18 @@
-import React, { useEffect, useRef } from "react";
+import React, {
+  useEffect,
+  useRef,
+  useState,
+  ChangeEvent,
+  FormEvent,
+} from "react";
 import { useDispatch } from "react-redux";
-import { Formik, Form as FormikForm, Field, ErrorMessage } from "formik";
-import * as yup from "yup";
-import { useTypedSelector } from "src/store";
-import { debtActions } from "src/store/actions";
-import { useCountRenders } from "src/hooks";
 import { useHistory, useParams } from "react-router-dom";
 
-interface ParamsType {
+import { useTypedSelector } from "src/store";
+import { bankerActions, debtActions } from "src/store/actions";
+import { useCountRenders } from "src/hooks";
+
+interface Params {
   id: string;
 }
 
@@ -15,119 +20,133 @@ const Debt: React.FC = () => {
   useCountRenders("Debt");
   const componentIsMounted = useRef(true);
 
-  const { id } = useParams<ParamsType>();
   const dispatch = useDispatch();
   const history = useHistory();
+  const { id } = useParams<Params>();
+
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
+  const [value, setValue] = useState(0);
+  const [bankerId, setBankerId] = useState("");
+
   const user = useTypedSelector(({ authReducer }) => authReducer.user);
   const debt = useTypedSelector(({ debtReducer }) => debtReducer.debt);
+  const bankers = useTypedSelector(
+    ({ bankerReducer }) => bankerReducer.bankers
+  );
 
   useEffect(() => {
-    if (componentIsMounted.current && id !== "novo") {
-      function checkDebt() {
+    if (componentIsMounted.current) {
+      dispatch(bankerActions.getBankers());
+
+      if (id !== "novo") {
         dispatch(debtActions.getDebtAsync(id));
       }
-      checkDebt();
     }
+
     return () => {
       componentIsMounted.current = false;
     };
-  }, [id, componentIsMounted, dispatch]);
+  }, [dispatch, componentIsMounted, id]);
+
+  useEffect(() => {
+    setTitle(debt.title)
+    setDescription(debt.description)
+    setValue(debt.value)
+    setBankerId(debt.bankerId)
+  }, [debt])
+
+  const handleChangeBanker = (e: ChangeEvent<HTMLSelectElement>) => {
+    setBankerId(e.target.value);
+  };
 
   const handleCreateDebt = async (
+    e: FormEvent,
     title: string,
     description: string,
-    value: number
+    value: number,
+    bankerId: string
   ) => {
-    const newDebt = { clientId: user._id!, title, description, value };
-    if (id === "novo") {
-      await dispatch(debtActions.createDebtAsync(newDebt));
-    } else {
-      await dispatch(debtActions.updateDebtAsync(debt._id!, newDebt));
-    }
+    e.preventDefault();
+
+    const newDebt = {
+      clientId: user._id!,
+      title,
+      description,
+      value,
+      bankerId,
+    };
+    await dispatch(debtActions.createDebtAsync(newDebt));
     history.push("/dividas");
   };
 
   return (
     <main className="container">
       <h1 className="my-5 text-center">
-        {id === "novo" ? "Nova Dívida" : "Alterar Dívida"}
+        {id === "novo" ? "Nova" : "Alterar"} Dívida
       </h1>
 
-      <Formik
-        initialValues={{
-          title: debt.title ? debt.title : "",
-          description: debt.description ? debt.description : "",
-          value: debt.value ? debt.value : 0,
-        }}
-        // validationSchema={validationSchema}
-        onSubmit={({ title, description, value }) =>
-          handleCreateDebt(title, description, value)
-        }
-      >
-        <FormikForm>
-          <div className="form-group">
-            <Field
-              type="text"
-              name="title"
-              placeholder="Título"
-              className="form-control"
-            />
-            <ErrorMessage
-              name="title"
-              render={(message) => (
-                <small style={{ color: "#ff0000" }}>{message}</small>
-              )}
-            />
-          </div>
+      <form>
+        <div className="form-group">
+          <label htmlFor="title">Título</label>
+          <input
+            type="text"
+            name="title"
+            className="form-control"
+            defaultValue={title}
+            onChange={(e) => setTitle(e.target.value)}
+          />
+        </div>
 
-          <div className="form-group">
-            <Field
-              type="text"
-              name="description"
-              placeholder="Descrição"
-              className="form-control"
-            />
-            <ErrorMessage
-              name="description"
-              render={(message) => (
-                <small style={{ color: "#ff0000" }}>{message}</small>
-              )}
-            />
-          </div>
+        <div className="form-group">
+          <label htmlFor="description">Descrição</label>
+          <input
+            type="text"
+            name="description"
+            className="form-control"
+            defaultValue={description}
+            onChange={(e) => setDescription(e.target.value)}
+          />
+        </div>
 
-          <div className="form-group">
-            <Field
-              type="number"
-              name="value"
-              placeholder="Valor"
-              className="form-control"
-            />
-            <ErrorMessage
-              name="value"
-              render={(message) => (
-                <small style={{ color: "#ff0000" }}>{message}</small>
-              )}
-            />
-          </div>
-          <button type="submit" className="btn btn-primary">
-            {id === "novo" ? "Criar" : "Alterar"}
-          </button>
-          <button
-            type="button"
-            className="btn btn-success"
-            onClick={() => history.push("/dividas")}
+        <div className="form-group">
+          <label htmlFor="value">Valor</label>
+          <input
+            type="number"
+            name="value"
+            className="form-control"
+            defaultValue={value}
+            onChange={(e) => setValue(parseInt(e.target.value))}
+          />
+        </div>
+
+        <div className="form-group">
+          <label htmlFor="bankerId">Banqueiro</label>
+          <select
+            name="bankerId"
+            value={bankerId}
+            onChange={(e) => handleChangeBanker(e)}
           >
-            Voltar
-          </button>
-        </FormikForm>
-      </Formik>
+            {bankers.map((banker) => (
+              <option key={banker._id} value={banker._id}>
+                {banker.name}
+              </option>
+            ))}
+          </select>
+        </div>
+
+        <button
+          type="button"
+          className="btn btn-primary"
+          onClick={(e) =>
+            handleCreateDebt(e, title, description, value, bankerId)
+          }
+        >
+          {id === "novo" ? "Criar" : "Alterar"}
+        </button>
+      </form>
     </main>
   );
 };
-
-// const validationSchema = yup.object({
-//   email: yup.string().trim().required("Email"),
-//   password: yup.string().trim().min(6, "Mínimo 6 caractéres").required("Senha"),
-// });
 
 export { Debt };
