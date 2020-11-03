@@ -28,6 +28,8 @@ const debtReducer: Reducer<debtTypes.State, debtTypes.ActionsTypes> = (
       return { ...state, debt: action.payload }
     case debtTypes.Types.CLEAR_DEBT:
       return { ...state, debt: action.payload }
+    case debtTypes.Types.CLEAR_DEBTS:
+      return { ...state, debts: action.payload }
     case debtTypes.Types.UPDATE_DEBT:
       return {
         ...state,

@@ -64,4 +64,12 @@ const clearDebtAsync = () => async (dispatch: (arg0: debtTypes.ActionsTypes) => 
   })
 }
 
-export { getDebtAsync, getDebtsAsync, createDebtAsync, updateDebtAsync, deleteDebtAsync, getDebtsByUserIdAsync, clearDebtAsync }
+const clearDebtsAsync = () => async (dispatch: (arg0: debtTypes.ActionsTypes) => debtTypes.ActionsTypes) => {
+
+  return dispatch({
+    type: debtTypes.Types.CLEAR_DEBTS,
+    payload: []
+  })
+}
+
+export { getDebtAsync, getDebtsAsync, createDebtAsync, updateDebtAsync, deleteDebtAsync, getDebtsByUserIdAsync, clearDebtAsync, clearDebtsAsync }

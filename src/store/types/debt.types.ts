@@ -13,7 +13,8 @@ export enum Types {
   CREATE_DEBT = "CREATE_DEBT",
   UPDATE_DEBT = "UPDATE_DEBT",
   DELETE_DEBT = "DELETE_DEBT",
-  CLEAR_DEBT = 'CLEAR_DEBT'
+  CLEAR_DEBT = 'CLEAR_DEBT',
+  CLEAR_DEBTS = 'CLEAR_DEBTS',
 }
 
 interface Get {
@@ -51,6 +52,11 @@ interface Clear {
   payload: Model
 }
 
+interface ClearAll {
+  type: typeof Types.CLEAR_DEBTS
+  payload: []
+}
+
 export interface ResponseGetAll {
   sucess: boolean;
   count: Number;
@@ -62,7 +68,7 @@ export interface ResponseSingle {
   debt: Model;
 }
 
-export type ActionsTypes = Get | Gets | GetsByUser | Create | Update | Delete | Clear;
+export type ActionsTypes = Get | Gets | GetsByUser | Create | Update | Delete | Clear | ClearAll;
 
 // State Types
 export interface State {

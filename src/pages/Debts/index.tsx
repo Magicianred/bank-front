@@ -20,6 +20,7 @@ const Debts: React.FC = () => {
     }
     return () => {
       componentIsMounted.current = false;
+      dispatch(debtActions.clearDebtsAsync())
     };
   }, [dispatch, user]);
 
