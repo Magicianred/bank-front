@@ -5,7 +5,7 @@ import { useTypedSelector } from "src/store";
 import { authActions } from "src/store/actions";
 
 import { Dashboard } from "../components";
-import { Debt, Debts, Home, Expenses } from "../pages";
+import { Debt, Debts, Home, Expenses, Expense } from "../pages";
 
 const ProtectedRoutes: React.FC = () => {
   const dispatch = useDispatch();
@@ -23,6 +23,7 @@ const ProtectedRoutes: React.FC = () => {
       <Route exact path="/dividas" component={Debts} />
       <Route exact path="/dividas/:id" component={Debt} />
       <Route exact path="/despesas" component={Expenses} />
+      <Route exact path="/despesas/:id" component={Expense} />
       <Redirect to="/home" />
     </Dashboard>
   );

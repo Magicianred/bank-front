@@ -1,4 +1,4 @@
-import { authApi, bankerApi, clientApi, debtApi, userApi } from '../services/api'
+import { authApi, bankerApi, clientApi, debtApi, userApi, expenseApi } from '../services/api'
 
 const setAuthorizationToken = (token: string | boolean) => {
   if (token) {
@@ -7,12 +7,14 @@ const setAuthorizationToken = (token: string | boolean) => {
     clientApi.defaults.headers.common.authorization = `Bearer ${token}`
     debtApi.defaults.headers.common.authorization = `Bearer ${token}`
     userApi.defaults.headers.common.authorization = `Bearer ${token}`
+    expenseApi.defaults.headers.common.authorization = `Bearer ${token}`
   } else {
     delete authApi.defaults.headers.common.authorization
     delete bankerApi.defaults.headers.common.authorization
     delete clientApi.defaults.headers.common.authorization
     delete debtApi.defaults.headers.common.authorization
     delete userApi.defaults.headers.common.authorization
+    delete expenseApi.defaults.headers.common.authorization
   }
 }
 

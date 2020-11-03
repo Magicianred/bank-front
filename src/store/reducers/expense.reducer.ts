@@ -26,6 +26,10 @@ const expenseReducer: Reducer<expenseTypes.State, expenseTypes.ActionsTypes> = (
       return { ...state, expenses: action.payload }
     case expenseTypes.Types.CREATE_EXPENSE:
       return { ...state, expense: action.payload }
+    case expenseTypes.Types.CLEAR_EXPENSE:
+      return { ...state, expense: action.payload }
+    case expenseTypes.Types.CLEAR_EXPENSES:
+      return { ...state, expenses: action.payload }
     case expenseTypes.Types.UPDATE_EXPENSE:
       return {
         ...state,

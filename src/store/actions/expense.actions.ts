@@ -2,7 +2,7 @@ import { AxiosResponse } from 'axios'
 import { expenseApi, userApi } from '../../services/api'
 import { expenseTypes } from '../types'
 
-const getDebtsAsync = () => async (dispatch: (arg0: expenseTypes.ActionsTypes) => expenseTypes.ActionsTypes) => {
+const getExpensesAsync = () => async (dispatch: (arg0: expenseTypes.ActionsTypes) => expenseTypes.ActionsTypes) => {
   const res: AxiosResponse<expenseTypes.ResponseGetAll> = await expenseApi.get('/')
 
   return dispatch({
@@ -11,7 +11,7 @@ const getDebtsAsync = () => async (dispatch: (arg0: expenseTypes.ActionsTypes) =
   })
 }
 
-const getDebtAsync = (expenseId: string) => async (dispatch: (arg0: expenseTypes.ActionsTypes) => expenseTypes.ActionsTypes) => {
+const getExpenseAsync = (expenseId: string) => async (dispatch: (arg0: expenseTypes.ActionsTypes) => expenseTypes.ActionsTypes) => {
   const res: AxiosResponse<expenseTypes.ResponseSingle> = await expenseApi.get(`/${expenseId}`)
 
   return dispatch({
@@ -20,7 +20,7 @@ const getDebtAsync = (expenseId: string) => async (dispatch: (arg0: expenseTypes
   })
 }
 
-const getDebtsByUserIdAsync = (userId: string) => async (dispatch: (arg0: expenseTypes.ActionsTypes) => expenseTypes.ActionsTypes) => {
+const getExpensesByUserIdAsync = (userId: string) => async (dispatch: (arg0: expenseTypes.ActionsTypes) => expenseTypes.ActionsTypes) => {
   const res: AxiosResponse<expenseTypes.ResponseGetAll> = await userApi.get(`/${userId}/expenses`)
 
   return dispatch({
@@ -29,8 +29,8 @@ const getDebtsByUserIdAsync = (userId: string) => async (dispatch: (arg0: expens
   })
 }
 
-const createDebtAsync = (newDebt: expenseTypes.Model) => async (dispatch: (arg0: expenseTypes.ActionsTypes) => expenseTypes.ActionsTypes) => {
-  const res: AxiosResponse<expenseTypes.ResponseSingle> = await expenseApi.post('/', newDebt)
+const createExpenseAsync = (newExpense: expenseTypes.Model) => async (dispatch: (arg0: expenseTypes.ActionsTypes) => expenseTypes.ActionsTypes) => {
+  const res: AxiosResponse<expenseTypes.ResponseSingle> = await expenseApi.post('/', newExpense)
 
   return dispatch({
     type: expenseTypes.Types.CREATE_EXPENSE,
@@ -38,8 +38,8 @@ const createDebtAsync = (newDebt: expenseTypes.Model) => async (dispatch: (arg0:
   })
 }
 
-const updateDebtAsync = (expenseId: string, updateDebt: expenseTypes.Model) => async (dispatch: (arg0: expenseTypes.ActionsTypes) => expenseTypes.ActionsTypes) => {
-  const res: AxiosResponse<expenseTypes.ResponseSingle> = await expenseApi.put(`/${expenseId}`, updateDebt)
+const updateExpenseAsync = (expenseId: string, updateExpense: expenseTypes.Model) => async (dispatch: (arg0: expenseTypes.ActionsTypes) => expenseTypes.ActionsTypes) => {
+  const res: AxiosResponse<expenseTypes.ResponseSingle> = await expenseApi.put(`/${expenseId}`, updateExpense)
 
   return dispatch({
     type: expenseTypes.Types.UPDATE_EXPENSE,
@@ -47,7 +47,7 @@ const updateDebtAsync = (expenseId: string, updateDebt: expenseTypes.Model) => a
   })
 }
 
-const deleteDebtAsync = (expenseId: string) => async (dispatch: (arg0: expenseTypes.ActionsTypes) => expenseTypes.ActionsTypes) => {
+const deleteExpenseAsync = (expenseId: string) => async (dispatch: (arg0: expenseTypes.ActionsTypes) => expenseTypes.ActionsTypes) => {
   await expenseApi.delete(`/${expenseId}`)
 
   return dispatch({
@@ -56,4 +56,20 @@ const deleteDebtAsync = (expenseId: string) => async (dispatch: (arg0: expenseTy
   })
 }
 
-export { getDebtAsync, getDebtsAsync, createDebtAsync, updateDebtAsync, deleteDebtAsync, getDebtsByUserIdAsync }
+const clearExpenseAsync = () => async (dispatch: (arg0: expenseTypes.ActionsTypes) => expenseTypes.ActionsTypes) => {
+
+  return dispatch({
+    type: expenseTypes.Types.CLEAR_EXPENSE,
+    payload: { clientId: '', description: '', title: '', value: 0, _id: '', paid: false, type: '' }
+  })
+}
+
+const clearExpensesAsync = () => async (dispatch: (arg0: expenseTypes.ActionsTypes) => expenseTypes.ActionsTypes) => {
+
+  return dispatch({
+    type: expenseTypes.Types.CLEAR_EXPENSES,
+    payload: []
+  })
+}
+
+export { getExpenseAsync, getExpensesAsync, createExpenseAsync, updateExpenseAsync, deleteExpenseAsync, getExpensesByUserIdAsync, clearExpenseAsync, clearExpensesAsync }

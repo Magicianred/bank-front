@@ -13,6 +13,8 @@ export enum Types {
   CREATE_EXPENSE = 'CREATE_EXPENSE',
   UPDATE_EXPENSE = 'UPDATE_EXPENSE',
   DELETE_EXPENSE = 'DELETE_EXPENSE',
+  CLEAR_EXPENSE =  'CLEAR_EXPENSE',
+  CLEAR_EXPENSES =  'CLEAR_EXPENSES',
 }
 
 interface Get {
@@ -45,6 +47,16 @@ interface Delete {
   payload: {}
 }
 
+interface Clear {
+  type: typeof Types.CLEAR_EXPENSE,
+  payload: Model
+}
+
+interface ClearList {
+  type: typeof Types.CLEAR_EXPENSES,
+  payload: []
+}
+
 export interface ResponseGetAll {
   sucess: boolean,
   count: Number,
@@ -56,7 +68,7 @@ export interface ResponseSingle {
   expense: Model
 }
 
-export type ActionsTypes = Get | Gets | GetsByUser | Create | Update | Delete
+export type ActionsTypes = Get | Gets | GetsByUser | Create | Update | Delete | Clear | ClearList
 
 // State Types
 export interface State {
