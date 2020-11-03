@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { Route, Redirect } from "react-router-dom";
+import { useTypedSelector } from "src/store";
 import { authActions } from "src/store/actions";
 
 import { Dashboard } from "../components";
@@ -8,9 +9,12 @@ import { Debt, Debts, Home, Expenses } from "../pages";
 
 const ProtectedRoutes: React.FC = () => {
   const dispatch = useDispatch();
+  const auth = useTypedSelector(({ authReducer }) => authReducer.user._id)
 
   useEffect(() => {
-    dispatch(authActions.getMe());
+    if (auth === '') {
+      dispatch(authActions.getMe());
+    }
   }, [dispatch]);
 
   return (

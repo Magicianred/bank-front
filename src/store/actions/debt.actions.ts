@@ -56,4 +56,12 @@ const deleteDebtAsync = (debtId: string) => async (dispatch: (arg0: debtTypes.Ac
   })
 }
 
-export { getDebtAsync, getDebtsAsync, createDebtAsync, updateDebtAsync, deleteDebtAsync, getDebtsByUserIdAsync }
+const clearDebtAsync = () => async (dispatch: (arg0: debtTypes.ActionsTypes) => debtTypes.ActionsTypes) => {
+
+  return dispatch({
+    type: debtTypes.Types.CLEAR_DEBT,
+    payload: { bankerId: '', clientId: '', description: '', title: '', value: 0, _id: '', paid: false }
+  })
+}
+
+export { getDebtAsync, getDebtsAsync, createDebtAsync, updateDebtAsync, deleteDebtAsync, getDebtsByUserIdAsync, clearDebtAsync }

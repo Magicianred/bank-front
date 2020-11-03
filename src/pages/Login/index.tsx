@@ -17,7 +17,7 @@ const Login: React.FC = () => {
   return (
     <main id="main-login" className="container-fluid d-flex">
       <div className="col d-flex align-items-center justify-content-center">
-        <form className="w-25">
+        <div className="w-25">
           <h2 className="text-center">ELCIESS</h2>
 
           <Formik
@@ -72,7 +72,7 @@ const Login: React.FC = () => {
               </Link>
             </FormikForm>
           </Formik>
-        </form>
+        </div>
       </div>
     </main>
   );

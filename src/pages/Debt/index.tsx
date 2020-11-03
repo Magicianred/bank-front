@@ -41,11 +41,14 @@ const Debt: React.FC = () => {
 
       if (id !== "novo") {
         dispatch(debtActions.getDebtAsync(id));
+      } else if (debt._id !== '') {
+        dispatch(debtActions.clearDebtAsync())
       }
     }
 
     return () => {
       componentIsMounted.current = false;
+      dispatch(debtActions.clearDebtAsync())
     };
   }, [dispatch, componentIsMounted, id]);
 
@@ -60,7 +63,7 @@ const Debt: React.FC = () => {
     setBankerId(e.target.value);
   };
 
-  const handleCreateDebt = async (
+  const handleCreateDebt = (
     e: FormEvent,
     title: string,
     description: string,
@@ -76,7 +79,12 @@ const Debt: React.FC = () => {
       value,
       bankerId,
     };
-    await dispatch(debtActions.createDebtAsync(newDebt));
+
+    if (id === 'novo') {
+      dispatch(debtActions.createDebtAsync(newDebt));
+    } else {
+      dispatch(debtActions.updateDebtAsync(id, newDebt))
+    }
     history.push("/dividas");
   };
 
@@ -93,7 +101,7 @@ const Debt: React.FC = () => {
             type="text"
             name="title"
             className="form-control"
-            defaultValue={title}
+            value={title}
             onChange={(e) => setTitle(e.target.value)}
           />
         </div>
@@ -104,7 +112,7 @@ const Debt: React.FC = () => {
             type="text"
             name="description"
             className="form-control"
-            defaultValue={description}
+            value={description}
             onChange={(e) => setDescription(e.target.value)}
           />
         </div>
@@ -115,7 +123,7 @@ const Debt: React.FC = () => {
             type="number"
             name="value"
             className="form-control"
-            defaultValue={value}
+            value={value}
             onChange={(e) => setValue(parseInt(e.target.value))}
           />
         </div>
@@ -125,6 +133,7 @@ const Debt: React.FC = () => {
           <select
             name="bankerId"
             value={bankerId}
+            className="form-control"
             onChange={(e) => handleChangeBanker(e)}
           >
             {bankers.map((banker) => (
@@ -137,12 +146,19 @@ const Debt: React.FC = () => {
 
         <button
           type="button"
-          className="btn btn-primary"
+          className="btn btn-success mr-2"
           onClick={(e) =>
             handleCreateDebt(e, title, description, value, bankerId)
           }
         >
           {id === "novo" ? "Criar" : "Alterar"}
+        </button>
+        <button
+          type="button"
+          className="btn btn-primary"
+          onClick={() => history.push('/dividas')}
+        >
+          Voltar
         </button>
       </form>
     </main>
